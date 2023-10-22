@@ -2,14 +2,26 @@
     <div class="card-content">
         <div class="card-img">
             <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSPJefUAf8FZjVlKuy6hQlThyiYePAPkIHJBH_UEEfUSB63FUoGKiUH-ppFeMbXYhgjv3w&usqp=CAU">
-            <span>
-                <h4>{{destino.imagenUrl}}</h4>
-            </span>
+            <span>{{position}}</span>
         </div>
         <div class="card-desc">
             <h3>{{destino.nombre}}</h3>
+            <p>Servicios</p>
+            <ul>
+                <li *ngFor="let s of destino.servicios">
+                    <span [ngSwitch]="s">
+                        <i *ngSwitchCase="'desayuno'" style="color: red;">{{s}}</i>
+                        <i *ngSwitchDefault>{{s}}</i>
+                        {{s}}
+                    </span>
+                </li>
+            </ul>
             <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, voluptatum! Dolor quo, perspiciatis
                 voluptas totam</p>
-            <a href="#" class="btn-card">Read</a>
+            <a href="#" class="btn-card" (click)="ir()">Ir!</a>
+            <span *ngIf="destino.isSelected()">
+                <span ngNonBindable>{{PREFERIDO}}</span>
+            </span>
+            <a [routerLink]="['/destino']">Ver Detalle</a>
         </div>
     </div>

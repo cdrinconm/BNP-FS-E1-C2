@@ -10,11 +10,7 @@ export class ListaDestinosComponent {
   destinos:DestinoViaje[];
   @HostBinding('attr.class') cssClass = 'col-md-4';
   constructor(){
-    this.destinos = [
-      {nombre:"Madrid",imagenUrl:"www.madrid.com"},
-      {nombre:"Londres",imagenUrl:"www.londres.com"},
-      {nombre:"Paris",imagenUrl:"www.paris.com"}
-    ];
+    this.destinos = [];
   }
 
   ngOnInit(){
@@ -24,5 +20,9 @@ export class ListaDestinosComponent {
   guardar(n:string,	u:string):boolean	{
     this.destinos.push(new DestinoViaje(n,	u));
     return false;
+  }
+  elegido(d:DestinoViaje){
+    this.destinos.forEach(function(x){x.setSelected(false);});
+    d.setSelected(true);
   }
 }
