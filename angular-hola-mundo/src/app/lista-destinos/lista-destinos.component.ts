@@ -1,5 +1,6 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { DestinoViaje } from './../models/destino-viaje-model';
+import { DestinosApiClient } from './../models/destinos-api-client.model';
 
 @Component({
   selector: 'app-lista-destinos',
@@ -7,22 +8,33 @@ import { DestinoViaje } from './../models/destino-viaje-model';
   styleUrls: ['./lista-destinos.component.css']
 })
 export class ListaDestinosComponent {
-  destinos:DestinoViaje[];
-  @HostBinding('attr.class') cssClass = 'col-md-4';
-  constructor(){
-    this.destinos = [];
+  @Output() onItemAdded: EventEmitter<DestinoViaje>;
+  updates: string[];
+
+  constructor(private destinosApiClient:DestinosApiClient){
+    this.onItemAdded = new EventEmitter();
+    this.updates = [];
+    this.destinosApiClient.subscribeOnChance((d:DestinoViaje)=> {
+      if(d != null){
+        this.updates.push("se ha elegido: " + d.nombre)
+      }
+    })
   }
 
   ngOnInit(){
 
   }
 
-  guardar(n:string,	u:string):boolean	{
-    this.destinos.push(new DestinoViaje(n,	u));
-    return false;
+  agregado(d:DestinoViaje)	{
+    this.destinosApiClient.add(d);
+    this.onItemAdded.emit(d);
   }
-  elegido(d:DestinoViaje){
-    this.destinos.forEach(function(x){x.setSelected(false);});
-    d.setSelected(true);
+  
+  elegido(e:DestinoViaje){
+    this.destinosApiClient.elegir(e);
   }
+
+  getAll(): DestinoViaje[] {
+		return this.destinosApiClient.getAll();
+	}
 }

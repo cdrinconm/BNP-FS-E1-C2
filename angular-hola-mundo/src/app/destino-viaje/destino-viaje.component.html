@@ -16,12 +16,10 @@
                     </span>
                 </li>
             </ul>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Laboriosam, voluptatum! Dolor quo, perspiciatis
-                voluptas totam</p>
             <a href="#" class="btn-card" (click)="ir()">Ir!</a>
             <span *ngIf="destino.isSelected()">
                 <span ngNonBindable>{{PREFERIDO}}</span>
             </span>
-            <a [routerLink]="['/destino']">Ver Detalle</a>
+            <a [routerLink]="['/destino']">Ver!</a>
         </div>
     </div>
