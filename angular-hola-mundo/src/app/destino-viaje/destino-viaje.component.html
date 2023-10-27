@@ -16,6 +16,13 @@
                     </span>
                 </li>
             </ul>
+            <div class="mt-3 d-flex justify-content-end">
+                <a href="#" (click)="voteUp()"><i class="material-icons md-18">thumb_up</i></a>
+                <a href="#" (click)="voteDown()"><i class="material-icons md-18">thumb_down</i></a>
+                <a href="#" (click)="voteReset()"><i class="material-icons md-18">delete_forever</i></a>
+                <span class="ml-2">{{ destino.votes }}</span>
+                <a href="#" class="btn btn-danger" (click)="eliminar()">Eliminar!</a>
+            </div>
             <a href="#" class="btn-card" (click)="ir()">Ir!</a>
             <span *ngIf="destino.isSelected()">
                 <span ngNonBindable>{{PREFERIDO}}</span>
