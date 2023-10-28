@@ -2,11 +2,11 @@ import { UUID } from 'uuid-generator-ts';
 
 export class DestinoViaje {
     
-    private selected:boolean = false;
-    public servicios:string[];
-	public id = new UUID();
+    selected:boolean;
+    servicios:string[];
+	id = new UUID();
 
-    constructor(public nombre:string, public u:string, public votes:number=0){
+    constructor(public nombre:string, public url:string, public votes:number=0){
         this.servicios = ['pileta', 'desayuno'];
     }
 

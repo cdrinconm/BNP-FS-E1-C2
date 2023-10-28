@@ -4,6 +4,8 @@ import { Actions, ofType, createEffect } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DestinoViaje } from './destino-viaje.model';
+import { HttpClient, HttpClientModule, HttpHeaderResponse, HttpHeaders, HttpRequest, HttpResponse } from '@angular/common/http';
+import { FunctionExpr } from '@angular/compiler';
 
 // ESTADO
 export interface DestinosViajesState {
@@ -12,7 +14,7 @@ export interface DestinosViajesState {
 	favorito: DestinoViaje;
 }
 
-export const initializeDestinosViajesState = function() {
+export function initializeDestinosViajesState () {
 	return {
 		items: [],
 		loading: false,
@@ -27,7 +29,8 @@ export enum DestinosViajesActionTypes {
 	ELEGIDO_FAVORITO = '[Destinos Viajes] Favorito',
 	VOTE_UP = '[Destinos Viajes] Vote Up',
 	VOTE_DOWN = '[Destinos Viajes] Vote Down',
-	VOTE_RESET_ALL = '[Destinos Viajes] Reset Vote All'
+	VOTE_RESET_ALL = '[Destinos Viajes] Reset Vote All',
+	INIT_MY_DATA = '[Destinos Viajes] Init My Data'
 }
 
 export class NuevoDestinoAction implements Action {
@@ -60,8 +63,13 @@ export class VoteResetAllAction implements Action {
 	constructor(public destino: DestinoViaje) { }
 }
 
+export class InitMyDataAction implements Action {
+	type = DestinosViajesActionTypes.INIT_MY_DATA;
+	constructor(public destino: string[]) { }
+}
+
 export type DestinosViajesActions = NuevoDestinoAction | ElegidoFavoritoAction | EliminadoDestinoAction |
-VoteUpAction | VoteDownAction | VoteResetAllAction;
+VoteUpAction | VoteDownAction | VoteResetAllAction | InitMyDataAction;
 
 // REDUCERS
 export function reducerDestinosViajes(
@@ -69,6 +77,13 @@ export function reducerDestinosViajes(
 	action: DestinosViajesActions
 ): DestinosViajesState {
 	switch (action.type) {
+		case DestinosViajesActionTypes.INIT_MY_DATA: {
+			const destinos: string[] = (action as InitMyDataAction).destino;
+			return {
+				...state,
+				items: destinos.map((d)=>new DestinoViaje(d, ""))
+			};
+		}
 		case DestinosViajesActionTypes.NUEVO_DESTINO: {
 			return {
 				...state,
@@ -105,9 +120,7 @@ export function reducerDestinosViajes(
 		case DestinosViajesActionTypes.VOTE_RESET_ALL: {
 			const d: DestinoViaje = (action as VoteResetAllAction).destino;
 			d.voteReset();
-			return { ...state };/*
-			state.items.forEach(x => x.voteReset());
-			return { ...state };*/
+			return { ...state };
 		}
 	}
 	return state;

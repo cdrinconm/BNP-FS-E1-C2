@@ -1,8 +1,8 @@
 import { Component, OnInit, Input, HostBinding, EventEmitter, Output } from '@angular/core';
-import { DestinoViaje } from '../models/destino-viaje.model';
-import { VoteDownAction, VoteResetAllAction, VoteUpAction } from '../models/destinos-viajes-state.model';
+import { DestinoViaje } from '../../models/destino-viaje.model';
+import { VoteDownAction, VoteResetAllAction, VoteUpAction } from '../../models/destinos-viajes-state.model';
 import { Store } from '@ngrx/store';
-import { AppState } from '../app.module';
+import { AppState } from '../../app.module';
 
 @Component({
   selector: 'app-destino-viaje',
@@ -10,7 +10,7 @@ import { AppState } from '../app.module';
   styleUrls: ['./destino-viaje.component.css']
 })
 export class DestinoViajeComponent {
-  @Input() destino:DestinoViaje = new DestinoViaje("","");
+  @Input() destino:DestinoViaje;
   @Input('idx') position:number = 0;
   @HostBinding('attr.class') cssClass = 'col-md-4';
   @Output() clicked:EventEmitter<DestinoViaje>;
@@ -25,10 +25,10 @@ export class DestinoViajeComponent {
 
   }
 
-  ir(){
-    this.clicked.emit(this.destino);
-    return false;
-  }
+  ir(): boolean {
+		this.clicked.emit(this.destino);
+		return false;
+	}
 
   voteUp(): boolean {
 		this.store.dispatch(new VoteUpAction(this.destino));
