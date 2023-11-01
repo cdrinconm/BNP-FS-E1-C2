@@ -26,6 +26,8 @@ import Dexie from 'dexie';
 import { DestinoViaje } from './models/destino-viaje.model';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, flatMap, from } from 'rxjs';
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // app cofig
 export interface AppConfig {
@@ -183,7 +185,11 @@ function HttpLoaderFactory(http: HttpClient) {
           useFactory: (HttpLoaderFactory),
           deps: [HttpClient]
       }
-    })
+    }),
+    NgxMapboxGLModule.withConfig({
+      accessToken: 'pk.eyJ1IjoiY2RyaW5jb25tIiwiYSI6ImNsb2Y0ZXpmNTBneWsyam8xam9ueDM1cTMifQ._phLfmvHH56xSqpnkn1sgw', // Optional, can also be set per map (accessToken input of mgl-map)
+    }),
+    BrowserAnimationsModule
   ],
   providers: [
     AuthService,
