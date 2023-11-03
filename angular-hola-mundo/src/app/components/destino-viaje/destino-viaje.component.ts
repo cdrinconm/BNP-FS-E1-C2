@@ -10,20 +10,20 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   templateUrl: './destino-viaje.component.html',
   styleUrls: ['./destino-viaje.component.css'],
   animations: [
-	trigger('esFavorito', [
-		state('estadoFavorito', style({
-			background_Color: 'PaleTurquoise'
-		})),
-		state('estadoNoFavorito', style({
-			background_Color: 'WhiteSmoke'
-		})),
-		transition('estadoNoFavorito => estadoFavorito', [
-			animate('3s')
-		]),
-		transition('estadoFavorito => estadoNoFavorito', [
-			animate('1s')
-		]),
-	])
+    trigger('esFavorito', [
+      state('estadoFavorito', style({
+        backgroundColor: 'PaleTurquoise'
+      })),
+      state('estadoNoFavorito', style({
+        backgroundColor: 'WhiteSmoke'
+      })),
+      transition('estadoNoFavorito => estadoFavorito', [
+        animate('3s')
+      ]),
+      transition('estadoFavorito => estadoNoFavorito', [
+        animate('1s')
+      ])
+    ])
   ]
 })
 export class DestinoViajeComponent {

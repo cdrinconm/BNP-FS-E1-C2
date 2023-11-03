@@ -28,6 +28,8 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { Observable, flatMap, from } from 'rxjs';
 import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { EspiameDirective } from './espiame.directive';
+import { TrackearClickDirective } from './trackear-click.directive';
 
 // app cofig
 export interface AppConfig {
@@ -160,7 +162,9 @@ function HttpLoaderFactory(http: HttpClient) {
     VuelosComponent,
     VuelosMainComponent,
     VuelosMasInfoComponent,
-    VuelosDetalleComponent
+    VuelosDetalleComponent,
+    EspiameDirective,
+    TrackearClickDirective
   ],
   imports: [
     BrowserModule,
@@ -186,9 +190,7 @@ function HttpLoaderFactory(http: HttpClient) {
           deps: [HttpClient]
       }
     }),
-    NgxMapboxGLModule.withConfig({
-      accessToken: 'pk.eyJ1IjoiY2RyaW5jb25tIiwiYSI6ImNsb2Y0ZXpmNTBneWsyam8xam9ueDM1cTMifQ._phLfmvHH56xSqpnkn1sgw', // Optional, can also be set per map (accessToken input of mgl-map)
-    }),
+    NgxMapboxGLModule,
     BrowserAnimationsModule
   ],
   providers: [
